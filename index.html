@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wordle-IT League</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ð©</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟩</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -442,7 +442,7 @@
           <span class="logo-icon">W</span>
           Wordle-IT League
         </div>
-        <p class="subtitle">Dodo vs Benni vs Gabri â sfida quotidiana</p>
+        <p class="subtitle">Dodo vs Benni vs Gabri — sfida quotidiana</p>
       </div>
       <button class="btn-admin" id="btn-admin" onclick="toggleAdmin()">+ Inserisci</button>
     </div>
@@ -452,7 +452,7 @@
 
     <!-- Config banner (shown only if Supabase not configured) -->
     <div class="config-banner" id="config-banner" style="display:none">
-      â ï¸ Supabase non configurato. Apri <code>index.html</code> e inserisci <code>SUPABASE_URL</code> e <code>SUPABASE_ANON_KEY</code> in cima allo script. Vedi il README per le istruzioni.
+      ⚠️ Supabase non configurato. Apri <code>index.html</code> e inserisci <code>SUPABASE_URL</code> e <code>SUPABASE_ANON_KEY</code> in cima allo script. Vedi il README per le istruzioni.
     </div>
 
     <!-- Admin panel -->
@@ -469,15 +469,15 @@
       </div>
       <div class="admin-players">
         <div>
-          <div class="field-label dodo">ð¦¤ Dodo</div>
+          <div class="field-label dodo">🦤 Dodo</div>
           <input type="text" id="time-dodo" class="input-dodo" placeholder="es. 1:42 o 102">
         </div>
         <div>
-          <div class="field-label benni">ð» Benni</div>
+          <div class="field-label benni">🐻 Benni</div>
           <input type="text" id="time-benni" class="input-benni" placeholder="es. 1:42 o 102">
         </div>
         <div>
-          <div class="field-label gabri">ð¦ Gabri</div>
+          <div class="field-label gabri">🦊 Gabri</div>
           <input type="text" id="time-gabri" class="input-gabri" placeholder="es. 1:42 o 102">
         </div>
       </div>
@@ -509,21 +509,21 @@
       <div id="games-container" style="display:none"></div>
     </div>
 
-    <div class="footer">Wordle-IT League Â· Powered by Supabase</div>
+    <div class="footer">Wordle-IT League · Powered by Supabase</div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // =============================================
-    // CONFIGURAZIONE â Inserisci qui i tuoi dati Supabase
+    // CONFIGURAZIONE — Inserisci qui i tuoi dati Supabase
     // =============================================
     const SUPABASE_URL = 'https://iuorewiokcexpmestulm.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_yp2zV76MqJziK1uiOnQi9g_xftLZzDU';
     // =============================================
 
     const PLAYERS = ['Dodo', 'Benni', 'Gabri'];
-    const AVATARS = { Dodo: 'ð¦¤', Benni: 'ð»', Gabri: 'ð¦' };
-    const MEDALS = { 0: 'ð¥', 1: 'ð¥', 2: 'ð¥' };
+    const AVATARS = { Dodo: '🦤', Benni: '🐻', Gabri: '🦊' };
+    const MEDALS = { 0: '🥇', 1: '🥈', 2: '🥉' };
 
     let supabase = null;
     let allResults = [];
@@ -566,7 +566,7 @@
     }
 
     function formatTime(seconds) {
-      if (!seconds && seconds !== 0) return 'â';
+      if (!seconds && seconds !== 0) return '—';
       const m = Math.floor(seconds / 60);
       const s = seconds % 60;
       return m > 0 ? `${m}m ${s.toString().padStart(2, '0')}s` : `${s}s`;
@@ -658,7 +658,7 @@
       }
 
       if (!supabase) {
-        showMsg(msg, 'Supabase non configurato â modalitÃ  demo', 'error');
+        showMsg(msg, 'Supabase non configurato — modalità demo', 'error');
         return;
       }
 
@@ -673,7 +673,7 @@
         if (error) throw error;
 
         btn.classList.add('success');
-        btn.textContent = 'Salvato! â';
+        btn.textContent = 'Salvato! ✓';
         showMsg(msg, '', '');
 
         // Reset fields
@@ -756,7 +756,7 @@
         container.style.display = 'block';
         container.innerHTML = `
           <div class="empty-state">
-            <div class="empty-emoji">ð®</div>
+            <div class="empty-emoji">🎮</div>
             <div class="empty-title">Nessuna partita ancora</div>
             <div class="empty-desc">Clicca "+ Inserisci" per aggiungere i primi risultati!</div>
           </div>
@@ -777,7 +777,7 @@
             <div class="player-avatar ${cls}">${AVATARS[p]}</div>
             <div class="player-info">
               <div class="player-name">${p}</div>
-              <div class="player-meta">${s.played} partite Â· ${s.wins} vittorie</div>
+              <div class="player-meta">${s.played} partite · ${s.wins} vittorie</div>
             </div>
             <div class="player-avg">
               <div class="avg-time ${cls}">${formatTime(Math.round(s.avg))}</div>
@@ -826,7 +826,7 @@
         gamesContainer.style.display = 'block';
         gamesContainer.innerHTML = `
           <div class="empty-state">
-            <div class="empty-emoji">ð</div>
+            <div class="empty-emoji">📅</div>
             <div class="empty-title">Nessuna partita ancora</div>
             <div class="empty-desc">I risultati appariranno qui dopo il primo inserimento.</div>
           </div>
@@ -860,7 +860,7 @@
           const cls = playerClass(p);
           html += `
             <div class="game-time-cell ${isWinner ? 'winner ' + cls : ''}">
-              <div class="game-time">${time ? formatTime(time) : 'â'}</div>
+              <div class="game-time">${time ? formatTime(time) : '—'}</div>
               ${isWinner ? `<div class="winner-label ${cls}">vincitore</div>` : ''}
             </div>
           `;
@@ -878,7 +878,7 @@
       const panel = document.getElementById('admin-panel');
       const btn = document.getElementById('btn-admin');
       const visible = panel.classList.toggle('visible');
-      btn.textContent = visible ? 'â Chiudi' : '+ Inserisci';
+      btn.textContent = visible ? '✕ Chiudi' : '+ Inserisci';
       btn.classList.toggle('active', visible);
     }
 
