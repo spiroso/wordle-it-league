@@ -74,147 +74,7 @@
       font-size: 14px;
       color: var(--text-secondary);
       font-weight: 400;
-    }
-    .btn-admin {
-      padding: 8px 16px;
-      border-radius: 10px;
-      border: 1.5px solid var(--border);
-      background: var(--card);
-      color: var(--text-secondary);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.15s;
-    }
-    .btn-admin:hover { background: #F9FAFB; }
-    .btn-admin.active {
-      background: var(--text);
-      color: white;
-      border-color: var(--text);
-    }
-
-    /* Main */
-    .main {
-      max-width: 660px;
-      margin: 0 auto;
-      padding: 20px 20px 60px;
-    }
-
-    /* Admin Panel */
-    .admin-panel {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 24px 28px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      margin-bottom: 24px;
-      display: none;
-    }
-    .admin-panel.visible { display: block; }
-    .admin-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .admin-players {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .field-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-    .field-label.dodo { color: var(--dodo-text); }
-    .field-label.benni { color: var(--benni-text); }
-    .field-label.gabri { color: var(--gabri-text); }
-
-    input[type="date"], input[type="text"] {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1.5px solid #D1D5DB;
-      font-size: 15px;
-      outline: none;
-      font-family: inherit;
-      transition: border-color 0.15s;
-    }
-    input:focus { border-color: #6366F1; }
-    .input-dodo { border-color: rgba(129,140,248,0.3); background: rgba(238,242,255,0.4); }
-    .input-dodo:focus { border-color: var(--dodo-border); }
-    .input-benni { border-color: rgba(245,158,11,0.3); background: rgba(254,243,199,0.4); }
-    .input-benni:focus { border-color: var(--benni-border); }
-    .input-gabri { border-color: rgba(52,211,153,0.3); background: rgba(236,253,245,0.4); }
-    .input-gabri:focus { border-color: var(--gabri-border); }
-
-    .btn-save {
-      width: 100%;
-      padding: 12px 24px;
-      border-radius: 12px;
-      border: none;
-      background: var(--text);
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-    .btn-save:hover { background: #374151; }
-    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-save.success { background: #10B981; }
-
-    .admin-message {
-      text-align: center;
-      font-size: 13px;
-      margin-top: 10px;
-      min-height: 20px;
-    }
-    .admin-message.error { color: #EF4444; }
-    .admin-message.success { color: #10B981; }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 20px;
-      background: #F3F4F6;
-      border-radius: 12px;
-      padding: 4px;
-    }
-    .tab-btn {
-      flex: 1;
-      padding: 10px 16px;
-      border-radius: 10px;
-      border: none;
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.15s;
-    }
-    .tab-btn.active {
-      background: white;
-      color: var(--text);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    }
-
-    /* Tab content */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    /* Standings */
-    .standings { display: flex; flex-direction: column; gap: 10px; }
+    }rection: column; gap: 10px; }
     .standing-card {
       background: var(--card);
       border: 2px solid var(--border);
@@ -525,7 +385,7 @@
     const AVATARS = { Dodo: '🦤', Benni: '🐻', Gabri: '🦊' };
     const MEDALS = { 0: '🥇', 1: '🥈', 2: '🥉' };
 
-    let supabase = null;
+    let db = null;
     let allResults = [];
 
     // Init
@@ -538,7 +398,7 @@
         document.getElementById('config-banner').style.display = 'block';
         showDemoData();
       } else {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         loadData();
       }
     });
@@ -590,7 +450,7 @@
     // ---- Data loading ----
     async function loadData() {
       try {
-        const { data, error } = await supabase
+        const { data, error } = await db
           .from('results')
           .select('*')
           .order('played_date', { ascending: false })
@@ -657,7 +517,7 @@
         return;
       }
 
-      if (!supabase) {
+      if (!db) {
         showMsg(msg, 'Supabase non configurato — modalità demo', 'error');
         return;
       }
@@ -666,7 +526,7 @@
       btn.textContent = 'Salvataggio...';
 
       try {
-        const { error } = await supabase
+        const { error } = await db
           .from('results')
           .upsert(entries, { onConflict: 'player,played_date' });
 
